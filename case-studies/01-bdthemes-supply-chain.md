@@ -57,21 +57,17 @@ detection:
   condition: new_admin_account AND suspicious_context
 level: critical
 
-Practical version (no SIEM required): a WP-CLI cron job diffing the admin user list every 15 minutes and alerting via webhook/email on any new administrator account would have caught this within one cycle — regardless of how the account was created.
-
-Additional control: outbound request monitoring/allow-listing for plugin telemetry endpoints, so a plugin suddenly fetching from a new or changed domain triggers an alert.
-```
-
 ## Lab Status
 
-- [ ] Conceptual only (not yet tested)
-- [ ] Tested against synthetic/sample data — link: `labs/...`
-- [ ] Tested against real lab environment (e.g. Juice Shop/DVWA) — link: `labs/...`
+- [x] Conceptual only (not yet tested)
+- [ ] Tested against synthetic/sample data
+- [ ] Tested against real lab environment (e.g. Juice Shop/DVWA)
 
 ## Lessons & Fixes
-
-Numbered list, 3-5 items. Each should be a concrete control or process change — not "patch faster" or "train users" as the sole recommendation.
-
----
-*Analysis based on public reporting from [source], [date]. Independent interpretation and detection sketch by the author.*
+1. Extend integrity monitoring to runtime data dependencies, not just code. Any remote JSON/config feed a plugin trusts should be pinned (checksum or signature verified) the same way a software dependency would be.
+2. Treat "promotional" or "admin notice" components as part of the trust boundary. They're often deprioritized in security review, this incident shows they can be a privilege-escalation vector.
+3. Add a vendor-risk questionnaire item: "Does this plugin/product fetch and act on remote data at runtime? If so, is that data source integrity-verified?" This becomes a standard GRC/vendor-assessment control gap to check for going forward.
+4. Monitor for new admin account creation independent of the WordPress audit log itself (which can be spoofed/incomplete) a database-level check is more reliable.
+   
+Analysis based on public reporting from Wordfence and The Hacker News, August 11, 2026. Independent interpretation and detection sketch by the author.
 
