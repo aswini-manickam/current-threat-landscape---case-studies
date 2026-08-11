@@ -27,25 +27,39 @@ Because the plugin automatically trusts and runs whatever comes back in that fil
 | Defense Evasion|	Trusted Relationship (site trusts vendor-controlled infrastructure)	| T1199 |
 | Privilege Escalation|	Valid Accounts (rogue admin used for ongoing access)	| T1078 |
 
-## Gap Analysis — why existing controls didn't stop this
+## Gap Analysis- why existing controls didn't stop this
 
-- What security control category *should* have caught this (prevention / detection / response)?
-- What assumption did the existing security stack make that turned out to be false?
-- Was this a novel technique, or a known technique against an under-monitored asset class?
+Most WordPress hardening stacks (malware scanners, file-integrity monitoring, WAFs) assume the attack surface is code: PHP files, plugin ZIPs, database injections. This attack didn't touch any of that.
 
-Close with one sentence stating the core false assumption, e.g.: *"The core assumption that failed: '...'"*
+File-integrity monitoring was blind to it as nothing on disk changed. The compromise lived entirely in a remote JSON feed the plugin fetched at runtime and rendered as a UI banner.
+Code review / repository trust was irrelevant as WordPress.org's repo scanning checks the code that's uploaded, not the external endpoints that code is allowed to call at runtime.
+Vendor risk assessments would have caught this if validated the remote endpoints plugin fetch data.
+
+The core assumption that failed is- if the code hasn't changed, the plugin's behavior hasn't changed. That assumption is false the moment a plugin renders or acts on unvalidated remote content.
 
 ## Detection Sketch
+Conceptual detection logic for a site owner / SOC monitoring WordPress infrastructure:
 
-Sigma-style or query pseudocode for what would catch this. Mark clearly whether this has been **tested** (link to `/labs/`) or is still **conceptual**.
+# Pseudocode / Sigma-style detection concept
 
-```
-title:
-description:
+title: Unexpected WordPress Admin Account Creation
+description: Detects new administrator account creation not tied to a known human session
 logsource:
+  product: wordpress
+  service: audit_log
 detection:
-condition:
-level:
+  new_admin_account:
+    event_type: user_register OR user_role_change
+    role: administrator
+  suspicious_context:
+    - originating_request: NOT authenticated_wp_admin_session
+    - OR triggered_by: scheduled_task OR remote_fetch_callback
+  condition: new_admin_account AND suspicious_context
+level: critical
+
+Practical version (no SIEM required): a WP-CLI cron job diffing the admin user list every 15 minutes and alerting via webhook/email on any new administrator account would have caught this within one cycle — regardless of how the account was created.
+
+Additional control: outbound request monitoring/allow-listing for plugin telemetry endpoints, so a plugin suddenly fetching from a new or changed domain triggers an alert.
 ```
 
 ## Lab Status
