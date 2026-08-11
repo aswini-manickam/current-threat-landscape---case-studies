@@ -7,6 +7,6 @@ This repo is my working record of studies made on significant incident: which co
 Every case study follows the same structure - see case-studies/TEMPLATE.md:Summary, Key dates/events,MITRE ATT&CK Mapping,Gap Analysis, Detection Sketch, Hand-on Lab Status, Lessons & remediation
 
 # Case Studies
-|Incident|Category|Lab Status|
+|#|Incident|Category|Lab Status|
 |---|---|---|---|
-|||||
+|#01|BdThemes WordPress Plugin Supply Chain Attack|Supply Chain|	Written analysis only|
