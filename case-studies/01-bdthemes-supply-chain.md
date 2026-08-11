@@ -1,7 +1,9 @@
 # Case Study NN: [Incident Name]
 
 **Date reported:** August 11, 2026
-**Source:** [Wordfence (researcher Paolo Tresso), via The Hacker News(https://thehackernews.com/2026/08/bdthemes-supply-chain-attack-poisons.html)
+
+**Source:** [Wordfence (researcher Paolo Tresso), via The Hacker News](https://thehackernews.com/2026/08/bdthemes-supply-chain-attack-poisons.html)
+
 **Category:** Supply Chain Compromise / Web Application Security
 
 ## Summary
@@ -12,7 +14,9 @@ Because the plugin automatically trusts and runs whatever comes back in that fil
 
 | Date | Event |
 |---|---|
-| | |
+| Unknown | Attackers gain the ability to modify the remote JSON feed consumed by the promo banner |
+| Unknown |	Poisoned JSON used to trigger rogue admin account creation on sites running affected plugins |
+| Aug 11, 2026 | Wordfence publishes findings; WordPress.org disables downloads for affected plugins|
 
 ## MITRE ATT&CK Mapping
 
