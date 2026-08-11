@@ -22,7 +22,10 @@ Because the plugin automatically trusts and runs whatever comes back in that fil
 
 | Tactic | Technique | ID |
 |---|---|---|
-| | | |
+| Initial Access|	Supply Chain Compromise (Software Supply Chain)	| T1195.002 |
+| Persistence|	Create Account: Local Account	| T1136.001 |
+| Defense Evasion|	Trusted Relationship (site trusts vendor-controlled infrastructure)	| T1199 |
+| Privilege Escalation|	Valid Accounts (rogue admin used for ongoing access)	| T1078 |
 
 ## Gap Analysis — why existing controls didn't stop this
 
