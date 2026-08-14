@@ -68,3 +68,7 @@ detection:
 condition: parent_process AND child_process AND timing
 level: medium (tune to reduce noise from legitimate build tasks)
 '''
+Lab Status
+ [x]Conceptual only (not yet tested)
+ [ ]Tested against synthetic/sample data
+ [ ] Tested against real lab environment
