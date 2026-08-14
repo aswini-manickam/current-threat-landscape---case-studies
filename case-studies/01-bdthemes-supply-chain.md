@@ -1,4 +1,4 @@
-# Case Study NN: [Incident Name]
+# Case Study 01: [BdThemes Supply Chain]
 
 **Date reported:** August 11, 2026
 
