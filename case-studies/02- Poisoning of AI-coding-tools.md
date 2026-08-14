@@ -1,24 +1,28 @@
-# Case Study NN: [Incident Name]
+# Case Study 02: The Poisoning of AI Coding Tools
 
-**Date reported:** [Date]
-**Source:** [Original reporting source(s) — link them]
-**Category:** [e.g. Supply Chain / Zero-Day / Ransomware / Identity Security]
+**Date reported:** Somewhere between January–February 2026
+**Source:** CrowdStrike 2026 Threat Hunting Report
+**Category:** Supply Chain
 
 ## Summary
 
-2-4 sentences: what happened, who was affected, what the impact was. Plain language, no framework jargon yet — that comes next.
+A hacking group went after cryptocurrency and blockchain companies by tricking developers into opening trapped coding projects. They rode the wave of interest in AI coding tools, building projects for a popular AI-powered code editor that looked completely normal on the surface but had hidden malicious code buried inside. The moment a developer opened one of these projects, the malicious code ran on its own no clicking, no downloads, nothing else needed from the victim.
+
 
 ## Timeline
 
 | Date | Event |
 |---|---|
-| | |
+| Jan–Feb 2026 | Hackers runs a campaign targeting crypto/blockchain firms with trojanized project repositories |
+| Ongoing during campaign | Repos are posted mainly on GitHub; at least one is shared directly through Telegram |
+| On project open | Victim's IDE terminal or task runner auto-executes hidden commands, giving the attacker a foothold |
 
 ## MITRE ATT&CK Mapping
 
 | Tactic | Technique | ID |
 |---|---|---|
-| | | |
+| Initial Access | Supply Chain Compromise (poisoned software dependencies) | T1195 |
+| Execution | Malicious code triggered automatically by the IDE (via post-install hooks / config files) | T1059 (general scripting execution — exact sub-technique not specified in source) |
 
 ## Gap Analysis — why existing controls didn't stop this
 
