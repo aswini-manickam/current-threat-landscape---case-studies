@@ -1,0 +1,17 @@
+**# Case Study 02: The Poisoning of AI Coding Tools**
+
+**Date reported:** January–February 2026
+**Source:** CrowdStrike 2026 Threat Hunting Report
+**Category:** Supply Chain
+## Summary
+
+A hacking group known as FAMOUS CHOLLIMA went after cryptocurrency and blockchain companies by tricking developers into opening booby-trapped coding projects. They rode the wave of interest in AI coding tools, building projects for a popular AI-powered code editor that looked completely normal on the surface but had hidden malicious code buried inside. The moment a developer opened one of these projects, the malicious code ran on its own no clicking, no downloads, nothing else needed from the victim.
+
+## Timeline
+
+| Date | Event |
+|---|---|
+| Jan–Feb 2026 | FAMOUS CHOLLIMA runs a campaign targeting crypto/blockchain firms with trojanized project repositories |
+| Ongoing during campaign | Repos are posted mainly on GitHub; at least one is shared directly through Telegram |
+| On project open | Victim's IDE terminal or task runner auto-executes hidden commands, giving the attacker a foothold |
+
