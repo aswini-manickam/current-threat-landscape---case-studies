@@ -35,12 +35,12 @@ npm lifecycle scripts (postinstall, preinstall) running automatically with full 
  ```bash
     npm install --ignore-scripts
  ```
-    in .npmrc
-    
- ``` bash
+
+ ```bash
+    # in .npmrc
     ignore-scripts=true 
  ```
-These blocks postinstall hook since these hooks execute with full user privileges and can access SSH keys, cloud credentials, and every environment variable, with no confirmation prompt or sandbox. However, one fix is never enough ,Even with --ignore-scripts turned on, the Bitwarden attack still ran its bad code. The hackers used the bin part of package.json to hide a harmful file. It ran whenever a user typed the bw command. Yet good to have
+These blocks postinstall hook since these hooks execute with full user privileges and can access SSH keys, cloud credentials, and every environment variable, with no confirmation prompt or sandbox. However, one fix is never enough ,There is a case-study where even with --ignore-scripts turned on, the Bitwarden attack still ran its bad code. The hackers used the bin part of package.json to hide a harmful file. It ran whenever a user typed the bw command. Yet good to have
  - According to an article [Malicious npm packages abuse dependency confusion to profile developer environments ](https://www.microsoft.com/en-us/security/blog/2026/05/29/33-malicious-npm-packages-abuse-dependency-confusion-profile-developer-environments/) Switching to pnpm, which disables automatic execution of postinstall scripts in dependencies by default, letting you explicitly allowlist only trusted packages.
 
 **Some Free, open-source and small setup**
@@ -76,12 +76,16 @@ level: medium (tune to reduce noise from legitimate build tasks)
 ## Lab Status
 
 - [x] Conceptual only (not yet tested)
-- [ ] Tested against synthetic/sample data — link: `labs/...`
-- [ ] Tested against real lab environment (e.g. Juice Shop/DVWA) — link: `labs/...`
+- [ ] Tested against synthetic/sample data
+- [ ] Tested against real lab environment 
 
 ## Lessons & Fixes
 
-Numbered list, 3-5 items. Each should be a concrete control or process change — not "patch faster" or "train users" as the sole recommendation.
+- Disable automatic execution of post-install scripts and editor tasks for projects opened from untrusted or newly-cloned sources; require explicit approval first.
+- Monitor and alert on IDE processes spawning shells, script interpreters, or network connections shortly after a project is opened.
+- Scan repository config files (package.json, .vscode/settings.json, install hooks) for suspicious commands before allowing a project to be opened on a managed device.
+- Isolate first-time-opened, externally-sourced projects in a sandbox or disposable environment, especially for high-value targets like crypto/blockchain teams.
+- Treat links shared over chat apps (e.g. Telegram) pointing to code repos as high-risk and route them through a review process before any engineer opens them.
 
 ---
-*Analysis based on public reporting from [source], [date]. Independent interpretation and detection sketch by the author.*
+*Analysis based on public reporting from CrowdStrike 2026 Threat Hunting Report, August 2026. Independent interpretation and detection sketch by the author.*
