@@ -60,12 +60,17 @@ These blocks postinstall hook since these hooks execute with full user privilege
 Sigma-style or query pseudocode for what would catch this.
 
 ```
-title:
-description:
-logsource:
+title: Suspicious child process spawned by IDE on project open
+description: Detects an AI coding IDE process (or its integrated terminal)
+  spawning shell/script interpreters shortly after a new project/workspace
+  is opened, consistent with malicious post-install hooks or editor tasks.
+logsource: endpoint process creation
 detection:
-condition:
-level:
+  parent_process: IDE binary (e.g. editor.exe / editor terminal helper)
+  child_process: cmd.exe, powershell.exe, bash, sh, node, python
+  timing: within seconds of workspace/project open event
+condition: parent_process AND child_process AND timing
+level: medium (tune to reduce noise from legitimate build tasks)
 ```
 
 ## Lab Status
