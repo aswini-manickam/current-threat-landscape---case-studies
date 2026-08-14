@@ -1,4 +1,4 @@
-# Case Study 01: [BdThemes Supply Chain]
+# Case Study 01: BdThemes Supply Chain
 
 **Date reported:** August 11, 2026
 
