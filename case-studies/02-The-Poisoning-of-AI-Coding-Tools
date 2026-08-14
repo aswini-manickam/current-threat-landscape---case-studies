@@ -5,13 +5,13 @@
 **Category:** Supply Chain
 ## Summary
 
-A hacking group known as FAM0US CH0LLIMA went after cryptocurrency and blockchain companies by tricking developers into opening trapped coding projects. They rode the wave of interest in AI coding tools, building projects for a popular AI-powered code editor that looked completely normal on the surface but had hidden malicious code buried inside. The moment a developer opened one of these projects, the malicious code ran on its own no clicking, no downloads, nothing else needed from the victim.
+A hacking group went after cryptocurrency and blockchain companies by tricking developers into opening trapped coding projects. They rode the wave of interest in AI coding tools, building projects for a popular AI-powered code editor that looked completely normal on the surface but had hidden malicious code buried inside. The moment a developer opened one of these projects, the malicious code ran on its own no clicking, no downloads, nothing else needed from the victim.
 
 ## Timeline
 
 | Date | Event |
 |---|---|
-| Jan–Feb 2026 | FAM0US CH0LLIMA runs a campaign targeting crypto/blockchain firms with trojanized project repositories |
+| Jan–Feb 2026 | Hackers runs a campaign targeting crypto/blockchain firms with trojanized project repositories |
 | Ongoing during campaign | Repos are posted mainly on GitHub; at least one is shared directly through Telegram |
 | On project open | Victim's IDE terminal or task runner auto-executes hidden commands, giving the attacker a foothold |
 
@@ -54,3 +54,17 @@ Socket.dev — free GitHub App tier that flags risky install-script behavior in 
   catch it, which raises the real question: why weren't they in use?
 
 *The core assumption that failed: "A project that looks like normal code, on a trusted platform, is safe to just open."*
+Detection Sketch:
+'''
+title: Suspicious child process spawned by IDE on project open
+description: Detects an AI coding IDE process (or its integrated terminal)
+  spawning shell/script interpreters shortly after a new project/workspace
+  is opened, consistent with malicious post-install hooks or editor tasks.
+logsource: endpoint process creation
+detection:
+  parent_process: IDE binary (e.g. editor.exe / editor terminal helper)
+  child_process: cmd.exe, powershell.exe, bash, sh, node, python
+  timing: within seconds of workspace/project open event
+condition: parent_process AND child_process AND timing
+level: medium (tune to reduce noise from legitimate build tasks)
+'''
