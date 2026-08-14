@@ -54,7 +54,7 @@ Socket.dev — free GitHub App tier that flags risky install-script behavior in 
   catch it, which raises the real question: why weren't they in use?
 
 *The core assumption that failed: "A project that looks like normal code, on a trusted platform, is safe to just open."*
-Detection Sketch:
+##Detection Sketch:
 '''
 title: Suspicious child process spawned by IDE on project open
 description: Detects an AI coding IDE process (or its integrated terminal)
@@ -68,7 +68,15 @@ detection:
 condition: parent_process AND child_process AND timing
 level: medium (tune to reduce noise from legitimate build tasks)
 '''
-Lab Status
+
+##Lab Status
  [x]Conceptual only (not yet tested)
  [ ]Tested against synthetic/sample data
  [ ] Tested against real lab environment
+
+##Lessons & Fixes
+Disable automatic execution of post-install scripts and editor tasks for projects opened from untrusted or newly-cloned sources; require explicit approval first.
+Monitor and alert on IDE processes spawning shells, script interpreters, or network connections shortly after a project is opened.
+Scan repository config files (package.json, .vscode/settings.json, install hooks) for suspicious commands before allowing a project to be opened on a managed device.
+Isolate first-time-opened, externally-sourced projects in a sandbox or disposable environment, especially for high-value targets like crypto/blockchain teams.
+Treat links shared over chat apps (e.g. Telegram) pointing to code repos as high-risk and route them through a review process before any engineer opens them.
