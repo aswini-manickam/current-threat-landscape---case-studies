@@ -44,6 +44,6 @@ The stolen data was packaged up and sold. TeamPCP advertised the full collection
 | Date | Event |
 |---|---|
 | Late Feb 2026 | An autonomous agent ([hackerbot-claw](https://www.stepsecurity.io/blog/hackerbot-claw-github-actions-exploitation)) exploits a `pull_request_target` misconfiguration in Trivy's GitHub Actions workflows, obtaining a privileged personal access token (PAT) |
-| Feb 27–28 2026 | [Aqua Security](https://www.aquasec.com/products/trivy/) rotates the affected personal access tokens (PAT), but the rotation is not atomic, its residual access survives | diagram - atomic rotation vs non atomic rotation
+| Feb 27–28 2026 | [Aqua Security](https://www.aquasec.com/products/trivy/) rotates the affected personal access tokens (PAT), but the rotation is not atomic, its residual access survives [diagram: How credential rotation works](https://github.com/aswini-manickam/current-threat-landscape---case-studies/blob/main/case-studies/diagrams/credential%20rotation(1).png) |
 
 
