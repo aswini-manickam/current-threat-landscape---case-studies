@@ -1,4 +1,4 @@
-# Case Study 04: The LiteLLM Supply Chain Attack
+# Case Study 03: The LiteLLM Supply Chain Attack
 
 **Date reported:** March 24, 2026 (new exposure analysis published August 11–13, 2026)
 **Source:** [LiteLLM Security](https://docs.litellm.ai/blog/security-update-march-2026)
