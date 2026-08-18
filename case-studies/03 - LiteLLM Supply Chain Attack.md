@@ -5,6 +5,11 @@
 **Category:** Supply Chain / AI Infrastructure / Credential Theft
 **In-Progress**
 
+Summary
+In March 2026, financially motivated threat actor TeamPCP hijacked Trivy (open-source vulnerability scanner), to steal LiteLLM's PyPI publishing credentials and push two malicious releases to a package downloaded 3.4 million times per day. The packages were live for roughly 40 minutes on March 24, but August 2026 analysis overturned the original timeline — 95% of the 2,500+ affected organisations were already exposed from a five-day collection run that began the moment Trivy was compromised on March 19. The credential stealer SANDCLOCK swept cloud keys, Kubernetes tokens, SSH keys, database passwords, and AI provider API keys from every host where an affected Python environment ran. Stolen credentials were subsequently brokered on Telegram and linked to the Vect ransomware affiliate programme.
+
+---
+
 Background
 A cybercriminal group called TeamPCP (tracked by [Google Threat Intelligence Group as code name UNC6780](https://cloud.google.com/blog/topics/threat-intelligence/mitigation-guidance-for-supply-chain-compromise)) attacked organisations for financial gain. 
 LiteLLM is a free, open-source software tool that many companies use to connect their applications to AI models like ChatGPT or Claude. If a company wants their internal software to send requests to multiple AI providers, LiteLLM acts as the central point that handles those requests. Because it sits between an organisation's systems and their AI providers, it has access to a lot of sensitive credentials.
