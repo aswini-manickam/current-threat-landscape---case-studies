@@ -4,6 +4,7 @@ A bit of background about the casestudy before jumping to the gap analysis. dete
 **Date reported:** Somewhere between January-February 2026
 **Source:** CrowdStrike 2026 Threat Hunting Report
 **Category:** Supply Chain
+**status:** Completed
 
 ## Summary
 
