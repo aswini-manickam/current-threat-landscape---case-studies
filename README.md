@@ -9,5 +9,5 @@ Every case study follows the same structure - see case-studies/TEMPLATE.md:Summa
 # Case Studies
 |#|Incident|Category|Lab Status|
 |---|---|---|---|
-|#01|BdThemes WordPress Plugin Supply Chain Attack|Supply Chain|	Written analysis|
+|#01|WordPress Plugin Supply Chain Attack|Supply Chain|	Written analysis|
 |#02|Poisoning of AI-coding-tools.md|Supply Chain|	Written analysis|
