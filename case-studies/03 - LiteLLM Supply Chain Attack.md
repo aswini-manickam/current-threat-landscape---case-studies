@@ -44,6 +44,14 @@ The stolen data was packaged up and sold. TeamPCP advertised the full collection
 | Date | Event |
 |---|---|
 | Late Feb 2026 | An autonomous agent ([hackerbot-claw](https://www.stepsecurity.io/blog/hackerbot-claw-github-actions-exploitation)) exploits a `pull_request_target` misconfiguration in Trivy's GitHub Actions workflows, obtaining a privileged personal access token (PAT) |
-| Feb 27–28 2026 | [Aqua Security](https://www.aquasec.com/products/trivy/) rotates the affected personal access tokens (PAT), but the rotation is not atomic, its residual access survives [diagram: How credential rotation works](https://github.com/aswini-manickam/current-threat-landscape---case-studies/blob/main/case-studies/diagrams/credential%20rotation(1).png) |
-
-
+| Feb 27–28 2026 | The credential rotates the affected personal access tokens (PAT), but the rotation is not atomic, its residual access survives [diagram: How credential rotation works](https://github.com/aswini-manickam/current-threat-landscape---case-studies/blob/main/case-studies/diagrams/credential%20rotation(1).png) |
+| Mar 1 2026 | Attacker begins using the surviving access |
+| Mar 19, 17:43 UTC | Attacker force-pushes 76 of 77 `trivy-action` tags and all 7 `setup-trivy` tags to malicious commits; spoofed maintainer identities used |
+| Mar 19, 17:47 UTC | Malicious Trivy 0.69.4 builds and publishes to Docker Hub; collection activity begins 18 minutes later at 18:05 UTC |
+| Mar 19, 22:42 UTC | The compromised PAT is revoked |
+| Mar 22 | Malicious Trivy 0.69.5 and 0.69.6 images pushed to Docker Hub |
+| Mar 23, 01:40 UTC | Malicious Docker Hub tags removed |
+| Mar 24, 10:39 UTC | LiteLLM v1.82.7 published to PyPI (payload injected into `proxy_server.py`) |
+| Mar 24, 10:52 UTC | LiteLLM v1.82.8 published 13 minutes later, adding `litellm_init.pth` a Python interpreter startup file that executes without any LiteLLM import |
+| Mar 24, ~11:19 UTC | PyPI quarantines both releases (~40 minutes after the first went live) |
+| Mar 24, ~16:00 UTC | End of LiteLLM's recommended audit window; persistence backdoor continues running on already-infected hosts |
