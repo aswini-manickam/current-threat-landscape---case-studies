@@ -1,10 +1,9 @@
 # Case Study 01: BdThemes Supply Chain
 
 **Date reported:** August 11, 2026
-
 **Source:** [Wordfence (researcher Paolo Tresso), via The Hacker News](https://thehackernews.com/2026/08/bdthemes-supply-chain-attack-poisons.html)
-
 **Category:** Supply Chain Compromise / Web Application Security
+**status:** Completed
 
 ## Summary
 [BdThemes](https://bdthemes.com/) makes popular WordPress plugins (Element Pack Addons has 100,000+ sites using it). Inside the plugin's admin dashboard, there's a small banner that shows promo messages like "Upgrade to Pro!" To display that banner, the plugin quietly fetches a small text file (JSON) from BdThemes' server every time an admin loads the dashboard.
