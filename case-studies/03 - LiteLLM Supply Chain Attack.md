@@ -6,7 +6,7 @@
 **In-Progress**
 
 ## Summary
-In March 2026, financially motivated threat actor TeamPCP hijacked Trivy (open-source vulnerability scanner), to steal LiteLLM's PyPI publishing credentials and push two malicious releases to a package downloaded 3.4 million times per day. The packages were live for roughly 40 minutes on March 24, but August 2026 analysis overturned the original timeline — 95% of the 2,500+ affected organisations were already exposed from a five-day collection run that began the moment Trivy was compromised on March 19. The credential stealer SANDCLOCK swept cloud keys, Kubernetes tokens, SSH keys, database passwords, and AI provider API keys from every host where an affected Python environment ran. Stolen credentials were subsequently brokered on Telegram and linked to the Vect ransomware affiliate programme.
+In March 2026, financially motivated threat actor TeamPCP hijacked Trivy (open-source vulnerability scanner), to steal LiteLLM's PyPI publishing credentials and push two malicious releases to a package downloaded 3.4 million times per day. The packages were live for roughly 40 minutes on March 24, but August 2026 analysis overturned the original timeline - 95% of the 2,500+ affected organisations were already exposed from a five-day collection run that began the moment Trivy was compromised on March 19. The credential stealer SANDCLOCK swept cloud keys, Kubernetes tokens, SSH keys, database passwords, and AI provider API keys from every host where an affected Python environment ran. Stolen credentials were subsequently brokered on Telegram and linked to the Vect ransomware affiliate programme.
 
 ---
 
@@ -29,10 +29,21 @@ LiteLLM is downloaded approximately 3.4 million times per day. At that volume, 4
 The August 2026 analysis showed that the 40-minute window was not actually where most of the damage happened. The data collection started five days earlier, on March 19, the moment Trivy itself was compromised. The malicious code was already running inside other organisations' systems before the fake LiteLLM packages even appeared. By March 24, 95% of the affected organisations had already been hit.
 What the malicious code actually did
 #### Once installed on a computer or server, the malicious software quietly searched the system for saved passwords, access keys, and tokens. Specifically, it looked for:
-  - Cloud keys — credentials for services like Amazon Web Services, Google Cloud, or Microsoft Azure. These let whoever holds them access or control an organisation's cloud servers and data.
-  - SSH keys — private files used to log into servers remotely without a password.
-  - Kubernetes tokens — credentials for managing containerised software infrastructure. Many companies run their applications inside containers managed by a - system called Kubernetes; access tokens let someone control those containers and move between them.
-  - Database passwords — the login credentials needed to read or modify a company's databases.
-  AI provider API keys — specifically the keys organisations use to authenticate with OpenAI (OPENAI_API_KEY) and Anthropic (ANTHROPIC_API_KEY). Holding these keys lets an attacker make requests to those AI services and charge the costs to the victim's account.
+  - Cloud keys - credentials for services like Amazon Web Services, Google Cloud, or Microsoft Azure. These let whoever holds them access or control an organisation's cloud servers and data.
+  - SSH keys - private files used to log into servers remotely without a password.
+  - Kubernetes tokens - credentials for managing containerised software infrastructure. Many companies run their applications inside containers managed by a - system called Kubernetes; access tokens let someone control those containers and move between them.
+  - Database passwords - the login credentials needed to read or modify a company's databases.
+  AI provider API keys - specifically the keys organisations use to authenticate with OpenAI (OPENAI_API_KEY) and Anthropic (ANTHROPIC_API_KEY). Holding these keys lets an attacker make requests to those AI services and charge the costs to the victim's account.
 
 All of this was collected without the organisation knowing, because the malicious code was designed to run silently in the background.
+### What happened to the stolen credentials
+The stolen data was packaged up and sold. TeamPCP advertised the full collection - over 150 gigabytes compressed on Telegram, the messaging platform. A ransomware group called Vect then formally partnered with TeamPCP, meaning the stolen credentials were handed to criminals whose business model is breaking into organisations and demanding payment to restore access. At least one confirmed Vect ransomware attack was later traced back to credentials stolen in this campaign.
+
+---
+## Timeline
+| Date | Event |
+|---|---|
+| Late Feb 2026 | An autonomous agent ([hackerbot-claw](https://www.stepsecurity.io/blog/hackerbot-claw-github-actions-exploitation)) exploits a `pull_request_target` misconfiguration in Trivy's GitHub Actions workflows, obtaining a privileged personal access token (PAT) |
+| Feb 27–28 2026 | [Aqua Security](https://www.aquasec.com/products/trivy/) rotates the affected personal access tokens (PAT), but the rotation is not atomic, its residual access survives | diagram - atomic rotation vs non atomic rotation
+
+
