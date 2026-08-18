@@ -55,3 +55,9 @@ The stolen data was packaged up and sold. TeamPCP advertised the full collection
 | Mar 24, 10:52 UTC | LiteLLM v1.82.8 published 13 minutes later, adding `litellm_init.pth` a Python interpreter startup file that executes without any LiteLLM import |
 | Mar 24, ~11:19 UTC | PyPI quarantines both releases (~40 minutes after the first went live) |
 | Mar 24, ~16:00 UTC | End of LiteLLM's recommended audit window; persistence backdoor continues running on already-infected hosts |
+| Mar 26, 2026 | CVE-2026-33634 added to CISA's Known Exploited Vulnerabilities (KEV) catalog |
+| Apr 16, 2026 | Vect ransomware announces BreachForums partnership; affiliate keys distributed to members using TeamPCP-sourced credentials |
+| Jul 2, 2026 | FBI issues FLASH-20260702-01 on TeamPCP campaign |
+| Aug 11–13, 2026 | Row-level exposure analysis published; 2,500+ organisations and ~434,000 CI/CD pipelines confirmed in dataset, with high-confidence matches including NVIDIA, Cisco, Deloitte, FedEx, and X Corp |
+
+---
