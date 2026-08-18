@@ -1,4 +1,4 @@
-# Case Study 02: The Poisoning of AI Coding Tools
+# Case Study 02: The poisoning of AI Coding Tools
 A bit of background about the casestudy before jumping to the gap analysis. detection sketch and lessons learn. 
 
 **Date reported:** Somewhere between January-February 2026
