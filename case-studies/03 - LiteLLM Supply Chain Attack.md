@@ -5,15 +5,34 @@
 **Category:** Supply Chain / AI Infrastructure / Credential Theft
 **In-Progress**
 
-Summary
+## Summary
 In March 2026, financially motivated threat actor TeamPCP hijacked Trivy (open-source vulnerability scanner), to steal LiteLLM's PyPI publishing credentials and push two malicious releases to a package downloaded 3.4 million times per day. The packages were live for roughly 40 minutes on March 24, but August 2026 analysis overturned the original timeline — 95% of the 2,500+ affected organisations were already exposed from a five-day collection run that began the moment Trivy was compromised on March 19. The credential stealer SANDCLOCK swept cloud keys, Kubernetes tokens, SSH keys, database passwords, and AI provider API keys from every host where an affected Python environment ran. Stolen credentials were subsequently brokered on Telegram and linked to the Vect ransomware affiliate programme.
 
 ---
 
-Background
+## Background
+### Who did this and why
 A cybercriminal group called TeamPCP (tracked by [Google Threat Intelligence Group as code name UNC6780](https://cloud.google.com/blog/topics/threat-intelligence/mitigation-guidance-for-supply-chain-compromise)) attacked organisations for financial gain. 
-LiteLLM is a free, open-source software tool that many companies use to connect their applications to AI models like ChatGPT or Claude. If a company wants their internal software to send requests to multiple AI providers, LiteLLM acts as the central point that handles those requests. Because it sits between an organisation's systems and their AI providers, it has access to a lot of sensitive credentials.
-PyPI is the official public website where Python software packages are published and downloaded. When a developer runs pip install litellm, their computer goes to PyPI and downloads the LiteLLM package automatically. Millions of downloads happen from PyPI every day without manual review of each package.
-Trivy is a free security scanning tool that developers use to check their own software for known vulnerabilities. LiteLLM's development team used Trivy as part of the process of building and releasing their software. Because Trivy was plugged into LiteLLM's internal build process, it had access to LiteLLM's account credentials on PyPI — the keys needed to publish new versions of the software.
+### What LiteLLM is
+[LiteLLM](https://www.litellm.ai/) is a free, open-source software tool that many companies use to connect their applications to AI models like ChatGPT or Claude. If a company wants their internal software to send requests to multiple AI providers, LiteLLM acts as the central point that handles those requests. Because it sits between an organisation's systems and their AI providers, it has access to a lot of sensitive credentials.
+### What PyPI is
+[PyPI](https://pypi.org/) is the official public website where Python software packages are published and downloaded. When a developer runs pip install litellm, their computer goes to PyPI and downloads the LiteLLM package automatically. Millions of downloads happen from PyPI every day without manual review of each package.
+### What Trivy is and why it was targeted first ?
+[Trivy](https://trivy.dev/) is a free security scanning tool that developers use to check their own software for known vulnerabilities. LiteLLM's development team used Trivy as part of the process of building and releasing their software. Because Trivy was plugged into LiteLLM's internal build process, it had access to LiteLLM's account credentials on PyPI the keys needed to publish new versions of the software.
 TeamPCP did not attack LiteLLM directly. They attacked Trivy first, because compromising Trivy gave them access to LiteLLM's PyPI publishing account. From there, they could release a fake version of LiteLLM under the real project's name.
-To publish a software package on PyPI, you need a username and password or an access token — just like logging into any account. Whoever holds those credentials can release a new version of that package, and it will appear legitimate to anyone who downloads it. TeamPCP stole those credentials through the compromised Trivy tool.
+### What "publishing credentials" means
+To publish a software package on PyPI, you need a username and password or an access token just like logging into any account. Whoever holds those credentials can release a new version of that package, and it will appear legitimate to anyone who downloads it. TeamPCP stole those credentials through the compromised Trivy tool.
+### What happened NEXT?
+TeamPCP used the stolen credentials to upload two fake, malicious versions of LiteLLM to PyPI - versions 1.82.7 and 1.82.8. These versions looked legitimate. Any developer or automated system that ran pip install litellm during that window received the malicious version automatically, without any warning. The packages were taken down about 40 minutes later.
+LiteLLM is downloaded approximately 3.4 million times per day. At that volume, 40 minutes of a malicious version being available is enough for a very large number of automated systems to pull it down.
+### The recent Analysis made in August
+The August 2026 analysis showed that the 40-minute window was not actually where most of the damage happened. The data collection started five days earlier, on March 19, the moment Trivy itself was compromised. The malicious code was already running inside other organisations' systems before the fake LiteLLM packages even appeared. By March 24, 95% of the affected organisations had already been hit.
+What the malicious code actually did
+#### Once installed on a computer or server, the malicious software quietly searched the system for saved passwords, access keys, and tokens. Specifically, it looked for:
+  - Cloud keys — credentials for services like Amazon Web Services, Google Cloud, or Microsoft Azure. These let whoever holds them access or control an organisation's cloud servers and data.
+  - SSH keys — private files used to log into servers remotely without a password.
+  - Kubernetes tokens — credentials for managing containerised software infrastructure. Many companies run their applications inside containers managed by a - system called Kubernetes; access tokens let someone control those containers and move between them.
+  - Database passwords — the login credentials needed to read or modify a company's databases.
+  AI provider API keys — specifically the keys organisations use to authenticate with OpenAI (OPENAI_API_KEY) and Anthropic (ANTHROPIC_API_KEY). Holding these keys lets an attacker make requests to those AI services and charge the costs to the victim's account.
+
+All of this was collected without the organisation knowing, because the malicious code was designed to run silently in the background.
