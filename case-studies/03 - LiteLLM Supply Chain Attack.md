@@ -3,7 +3,7 @@
 **Date reported:** March 24, 2026 (new exposure analysis published August 11–13, 2026)
 **Source:** [LiteLLM Security](https://docs.litellm.ai/blog/security-update-march-2026)
 **Category:** Supply Chain / AI Infrastructure / Credential Theft
-**In-Progress**
+**status:** In-Progress
 
 ## Summary
 In March 2026, financially motivated threat actor TeamPCP hijacked Trivy (open-source vulnerability scanner), to steal LiteLLM's PyPI publishing credentials and push two malicious releases to a package downloaded 3.4 million times per day. The packages were live for roughly 40 minutes on March 24, but August 2026 analysis overturned the original timeline - 95% of the 2,500+ affected organisations were already exposed from a five-day collection run that began the moment Trivy was compromised on March 19. The credential stealer SANDCLOCK swept cloud keys, Kubernetes tokens, SSH keys, database passwords, and AI provider API keys from every host where an affected Python environment ran. Stolen credentials were subsequently brokered on Telegram and linked to the Vect ransomware affiliate programme.
