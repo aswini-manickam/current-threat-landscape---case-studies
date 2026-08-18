@@ -1,4 +1,4 @@
-# Case Study 01: BdThemes Supply Chain
+# Case Study 01: WordPress plugin supply chain attack
 
 **Date reported:** August 11, 2026
 **Source:** [Wordfence (researcher Paolo Tresso), via The Hacker News](https://thehackernews.com/2026/08/bdthemes-supply-chain-attack-poisons.html)
